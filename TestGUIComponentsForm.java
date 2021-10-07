@@ -109,16 +109,16 @@ FileReader fr;
             }
         });
 
-        Load.setText("Save");
-        Load.setActionCommand("Save");
+        Load.setText("Load");
+        Load.setActionCommand("oad");
         Load.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoadActionPerformed(evt);
             }
         });
 
-        Save.setText("Load");
-        Save.setActionCommand("Load");
+        Save.setText("Save");
+        Save.setActionCommand("Save");
         Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveActionPerformed(evt);
@@ -233,48 +233,29 @@ FileReader fr;
 
     private void guardar() {
         try {
-        fitxer = new File("User.txt");
-        bw = new BufferedWriter(new FileWriter(fitxer));
-        bw.write(result);
+        File archiu = new File("src/User.txt");
+        bw = new BufferedWriter(new FileWriter(archiu));
+        bw.write(txtOutput.getText());
+        bw.close();
         
-        } catch (Exception e)
-        {
+        } catch (Exception e){
             e.printStackTrace();
-        }
-        finally
-        {
-            try
-            {
-                if (null != fitxer)
-                    bw.close();
-            }
-            catch (Exception e2)
-            {
-                e2.printStackTrace();
-            }
         }
     }
     
     private void cargar(){
         try {
-            String line;
-            fr = new FileReader("User.txt");
+            fr = new FileReader("src/User.txt");
             br = new BufferedReader(fr); 
+            String line = br.readLine();
             
-            while ((line = br.readLine()) != null)
-                    txtOutput.setText(line);
+            while (line != null) {
+                txtOutput.setText(txtOutput.getText() + line + "\n");
+                line = br.readLine();
+            }
         } catch (Exception e) {
                 e.printStackTrace();
-        } finally {
-            try {
-                if (null != fr) {
-                    fr.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
         }
-        
     }
     
     private void btnEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterActionPerformed

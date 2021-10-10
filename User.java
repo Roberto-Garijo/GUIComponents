@@ -3,13 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package spdvi;
+
+import java.time.LocalDate;
+
 /**
  *
  * @author Alumne
  */
 public class User {
     
-    public User(int id, String name, String surname, int birthDate, String gender, String alive) {
+    public User(int id, String name, String surname, LocalDate birthDate, String gender, String alive) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -20,13 +23,13 @@ public class User {
 
     @Override
     public String toString() {
-        return "id: " + id + ", " + name + " " + surname + ", " + birthDate + ", " + gender + ", " + alive;
+        return id + "," + surname + "," + name + "," + birthDate + "," + gender + "," + alive;
     }
     
     private int id;
     private String name;
     private String surname;
-    private int birthDate;
+    private LocalDate birthDate;
     private String gender;
     private String alive;
 
@@ -42,7 +45,7 @@ public class User {
         this.surname = surname;
     }
 
-    public void setBirthDate(int birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
@@ -66,7 +69,7 @@ public class User {
         return surname;
     }
 
-    public int getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 

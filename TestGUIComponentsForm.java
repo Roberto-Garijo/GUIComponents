@@ -1,6 +1,7 @@
 package spdvi;
 import java.io.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class TestGUIComponentsForm extends javax.swing.JFrame {
 String result = "";
@@ -8,6 +9,10 @@ BufferedWriter bw;
 BufferedReader br;
 File fitxer;
 FileReader fr;
+ArrayList<User> list = new ArrayList<User>();
+ArrayList<String> listTxt = new ArrayList<String>();
+String []users = new String[list.size()];
+
     public TestGUIComponentsForm() {
         initComponents();
     }
@@ -233,26 +238,40 @@ FileReader fr;
 
     private void guardar() {
         try {
-        File archiu = new File("src/User.txt");
+        File archiu = new File("src/User.csv");
+        if(!archiu.exists())
+            archiu.createNewFile();
         bw = new BufferedWriter(new FileWriter(archiu));
-        bw.write(txtOutput.getText());
+        
+        
+        for(int i = 0; i < list.size(); i++)
+            bw.write(list.get(i).toString() + "\n");
+        
         bw.close();
         
-        } catch (Exception e){
-            e.printStackTrace();
+        } catch (IOException ioe){
+            ioe.printStackTrace();
         }
     }
     
     private void cargar(){
         try {
-            fr = new FileReader("src/User.txt");
+            result = "";
+            txtOutput.setText("");
+            fr = new FileReader("src/User.csv");
             br = new BufferedReader(fr); 
             String line = br.readLine();
             
             while (line != null) {
-                txtOutput.setText(txtOutput.getText() + line + "\n");
+                listTxt.add(line);
                 line = br.readLine();
             }
+            
+            for(int i = 0; i < listTxt.size(); i++) {
+                result += listTxt.get(i) + "\n";
+                txtOutput.setText(result);
+            }
+            
         } catch (Exception e) {
                 e.printStackTrace();
         }
@@ -271,13 +290,16 @@ FileReader fr;
         if(btnDead.isSelected())
             alive = "Dead";
         
-        LocalDate fechaNacimiento = LocalDate.parse(txtDate.getText());
-        int year = 2021 - fechaNacimiento.getYear();
+        LocalDate birthDate = LocalDate.parse(txtDate.getText());
+        
                 
         
-        User user = new User(id, name, surname, year, gender, alive);
+        User user = new User(id, name, surname, birthDate, gender, alive);
         result += user.toString() + "\n";
         txtOutput.setText(result);
+        list.add(user);
+        
+        //list.toArray(users);
     }//GEN-LAST:event_btnEnterActionPerformed
 
     private void btnFemaleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFemaleActionPerformed

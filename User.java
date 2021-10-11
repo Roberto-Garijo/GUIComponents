@@ -3,8 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package spdvi;
-
 import java.time.LocalDate;
+import java.time.Period;
 
 /**
  *
@@ -12,73 +12,80 @@ import java.time.LocalDate;
  */
 public class User {
     
-    public User(int id, String name, String surname, LocalDate birthDate, String gender, String alive) {
-        this.id = id;
-        this.name = name;
-        this.surname = surname;
-        this.birthDate = birthDate;
-        this.gender = gender;
-        this.alive = alive;
-    }
+    //private int id;
+    private String id, firstName, lastName, gender;
+    private LocalDate birthDate;
+    private boolean isAlive;
 
+    public User(String id, String firstName, String lastName, String gender, LocalDate birthDate, boolean isAlive) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.isAlive = isAlive;
+    }
+    
     @Override
     public String toString() {
-        return id + "," + surname + "," + name + "," + birthDate + "," + gender + "," + alive;
+        //return "User{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", gender=" + gender + ", birthDate=" + birthDate + ", isAlive=" + isAlive + '}';
+        
+        String Alive;
+        if (isAlive == true)
+            Alive = "Alive";
+        else
+            Alive = "Dead";
+        LocalDate now = LocalDate.now();
+        Period diferencia = Period.between(birthDate, now);
+        
+        return id + ": " + lastName + ", " + firstName + " - " + diferencia.getYears() + " years old - " + gender + " - " + Alive + "\n";
     }
     
-    private int id;
-    private String name;
-    private String surname;
-    private LocalDate birthDate;
-    private String gender;
-    private String alive;
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public void setBirthDate(LocalDate birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public void setAlive(String alive) {
-        this.alive = alive;
-    }
-    
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getSurname() {
-        return surname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public LocalDate getBirthDate() {
-        return birthDate;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getGender() {
         return gender;
     }
 
-    public String isAlive() {
-        return alive;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
-    
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public boolean isIsAlive() {
+        return isAlive;
+    }
+
+    public void setIsAlive(boolean isAlive) {
+        this.isAlive = isAlive;
+    }
 }
